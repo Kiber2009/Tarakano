@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>{{ title }}</h1>
+<form action="" method="post" enctype="multipart/form-data">
+    {{ form.hidden_tag() }}
+    <p>
+        {{ form.name.label }}<br>
+        {{ form.name(class="form-control") }}<br>
+        {% for error in form.name.errors %}
+            <p class="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </p>
+    <p>
+        {{ form.description.label }}<br>
+        {{ form.description(class="form-control") }}<br>
+        {% for error in form.description.errors %}
+            <p class="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </p>
+    <p>
+        {{ form.mod_id.label }}<br>
+        {{ form.mod_id(class="form-control") }}<br>
+        {% for error in form.mod_id.errors %}
+            <p class="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </p>
+    <p>
+        {{ form.version.label }}<br>
+        {{ form.version(class="form-control") }}<br>
+        {% for error in form.version.errors %}
+            <p class="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </p>
+    <p>
+        {{ form.loader.label }}<br>
+        {{ form.loader(class="form-control") }}<br>
+        {% for error in form.loader.errors %}
+            <p class="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </p>
+    <p>
+        {{ form.game_version.label }}<br>
+        {{ form.game_version(class="form-control") }}<br>
+        {% for error in form.game_version.errors %}
+            <p class="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </p>
+    <p>
+        {{ form.min_loader_version.label }}<br>
+        {{ form.min_loader_version(class="form-control") }}<br>
+        {% for error in form.min_loader_version.errors %}
+            <p class="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </p>
+    <p>
+        {{ form.file.label }}<br>
+        {{ form.file(class="form-control") }}<br>
+        {% for error in form.file.errors %}
+            <p class="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </p>
+    <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
+    {{message}}
+</form>
+{% endblock %}

@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block content %}
+<br>
+<div class="col-md6 border rounded">
+    <div class="navbar">
+        <h1>{{ mod.name }}</h1>
+        <div>
+            <form method="post" action="">
+                {{ download_form.hidden_tag() }}
+                <a>{{ download_form.submit(type="submit", class="btn btn-primary") }}</a>
+                {% if current_user.is_authenticated and current_user == mod.user %}
+                <a class="btn btn-secondary" href="/mod/{{ mod.id }}/edit">Изменить</a>
+                <a class="btn btn-danger" href="/mod/{{ mod.id }}/delete">Удалить</a>
+                {% endif %}
+            </form>
+        </div>
+    </div>
+    <div class="padding">⭐{{ mod.get_rate() }}</div>
+    <div class="padding big-about">{{ mod.description }}</div>
+    <div class="padding">Автор: <a href="/user/{{ mod.user.id }}">{{ mod.user.name }}</a></div>
+    <div class="padding">Версия игры: {{mod.game_version}}</div>
+    <div class="padding">Минимальная версия ядра: {{mod.min_loader_version}}</div>
+    <div class="padding">Дата публикации: <i>{{ mod.uploaded_date.strftime('%d.%m.%Y') }}</i></div>
+</div>
+<br>
+<div class="padding">
+    {% if current_user.is_authenticated and can_comment %}
+    <form class="col-md6 border rounded" action="" method="post">
+        {{ form.hidden_tag() }}
+        <p class="padding">
+            {{ form.rate.label }}<br>
+            {{ form.rate(class="form-control") }}<br>
+            {% for error in form.rate.errors %}
+        <div class="alert alert-danger" role="alert">{{ error }}</div>
+        {% endfor %}
+        </p>
+        <p class="padding">
+            {{ form.text.label }}<br>
+            {{ form.text(class="form-control") }}<br>
+            {% for error in form.text.errors %}
+        <div class="alert alert-danger" role="alert">{{ error }}</div>
+        {% endfor %}
+        </p>
+        <p class="padding">{{ form.submit(type="submit", class="btn btn-primary") }}</p>
+        <div>{{ message }}</div>
+    </form>
+    {% elif current_user.is_authenticated %}
+    <div class="col-md6 border rounded">
+        <div class="navbar">
+            <h2><a href="/user/{{user_comment.user.id}}">{{user_comment.user.name}}</a></h2>
+            <div>
+                <div><i>{{user_comment.created_date.strftime('%d.%m.%Y')}}</i></div>
+                <a class="btn btn-danger" href="/comment/{{ user_comment.id }}/delete">Удалить</a>
+            </div>
+        </div>
+        <div class="padding">⭐{{ user_comment.rate }}</div>
+        <div class="padding small-about">{{ user_comment.text }}</div>
+    </div>
+    {% endif %}
+    {% for item in mod.comments %}
+    <div class="col-md6 border rounded">
+        <div class="navbar">
+            <h2><a href="/user/{{item.user.id}}">{{item.user.name}}</a></h2>
+            <div><i>{{item.created_date.strftime('%d.%m.%Y')}}</i></div>
+        </div>
+        <div class="padding">⭐{{ item.rate }}</div>
+        <div class="padding small-about">{{ item.text }}</div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
