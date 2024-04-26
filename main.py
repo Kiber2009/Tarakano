@@ -268,7 +268,7 @@ def delete_comment(comment_id: int):
 
 
 def main():
-    db_session.global_init('db/blogs.db')
+    db_session.global_init('database.db')
     app.run(host='127.0.0.1', port=5000)
 
 
