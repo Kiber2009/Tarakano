@@ -10,6 +10,7 @@ from data.mods import Mod
 from data.comments import Comment
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from engine import cut_str
+from api import users_api, mods_api
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = config.SECRET_KEY
@@ -267,8 +268,48 @@ def delete_comment(comment_id: int):
     return redirect(f'/mod/{mod_id}')
 
 
+@app.errorhandler(404)
+@app.route('/error/404')
+def error_404(*args):
+    return render_template('error.html',
+                           title='Ошибка 404',
+                           error_code=404,
+                           error_text=['Страница не найдена',
+                                       'Проверьте правильность введеного url'])
+
+
+@app.errorhandler(403)
+@app.route('/error/403')
+def error_403(*args):
+    return render_template('error.html',
+                           title='Ошибка 403',
+                           error_code=403,
+                           error_text=['Нет доступа'])
+
+
+@app.errorhandler(418)
+@app.route('/error/418')
+def error_418(*args):
+    return render_template('error.html',
+                           title='Ошибка 418',
+                           error_code=418,
+                           error_text=['Сервер не может приготовить кофе, потому что он чайник'])
+
+
+@app.errorhandler(500)
+@app.route('/error/500')
+def error_500(*args):
+    return render_template('error.html',
+                           title='Ошибка 500',
+                           error_code=500,
+                           error_text=['Внутренняя ошибка сервера',
+                                       'Попробуйте перезагрузить страницу'])
+
+
 def main():
     db_session.global_init('database.db')
+    app.register_blueprint(users_api.blueprint)
+    app.register_blueprint(mods_api.blueprint)
     app.run(host='127.0.0.1', port=5000)
 
 

@@ -5,8 +5,10 @@ Tarakano - сайт с модами для Minecraft
 * Python 3.11.5
 * flask
 * SQLAlchemy
-* werkzeug
+* flask_wtf
 * wtforms
+* flask_login
+* SQLAlchemy-serializer
 ### Скачивание и использование
 * Вам понадобится Python 3.11 или более поздней версии
 * Клонируйте репозиторий:
@@ -14,6 +16,7 @@ Tarakano - сайт с модами для Minecraft
     git clone https://github.com/Kiber2009/Tarakano.git
     cd Tarakano
     ```
-* Выполните `python -m pip install -r requirements.txt` для установки всех необходимых библиотек.
-* Для запуска найдите файл `main.py` и запустите его.
-* * Или выполните `python main.py`
+* Выполните `.\run` для запуска
+* Или
+* * Выполните `python -m pip install -r requirements.txt` для установки всех необходимых библиотек
+* * Выполните `python flask_app.py` для запуска

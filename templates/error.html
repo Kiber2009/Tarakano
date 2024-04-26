@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Упс...</h1>
+<br>
+<h2>Ошибка {{ error_code }}</h2>
+<div class="big-about">
+    {% for item in error_text %}
+    {{ item }}
+    <br>
+    {% endfor %}
+</div>
+{% endblock %}
